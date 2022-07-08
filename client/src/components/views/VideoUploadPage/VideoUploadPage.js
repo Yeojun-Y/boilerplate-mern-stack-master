@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 // import Title from 'antd/lib/skeleton/Title';
 import Dropzone from 'react-dropzone';
+// import { response } from 'express';
+import axios from 'axios';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -22,8 +24,8 @@ function VideoUploadPage() {
 
     const [VideoTitle, setVideoTitle] = useState("")
     const [Description, setDescription] = useState("")
-    const [Private, setPrivate] = useState(0)
-    const [Category, setCategory] = useState("Film & Animation")
+    //const [Private, setPrivate] = useState(0)
+    //const [Category, setCategory] = useState("Film & Animation")
 
     const onTitleChange = (e) => {
         setVideoTitle(e.currentTarget.value)
@@ -37,6 +39,22 @@ function VideoUploadPage() {
     const onCategoryChange = (e) => {
         setDescription(e.currentTarget.value)
     }
+    const onDrop = (files) => {
+        let formData = new FormData();
+        const config = {
+            Headers: {'content-type': 'multipart/form-data'}
+        }
+        formData.append("file", files[0])
+
+        axios.post('/api/video/uploads', formData, config)
+            .then(response => {
+                if(response.data.success) {
+                    console.log(response.data)
+                }else {
+                    alert('비디오 업로드를 실패했습니다.')
+                }
+            })
+    }
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }} >
@@ -47,9 +65,9 @@ function VideoUploadPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     {/* Drop zone*/}
                     <Dropzone
-                        onDrop
-                        multiple
-                        maxSize
+                        onDrop={onDrop}
+                        multiple={false}
+                        maxSize={100000000}
                     >
                         {({ getRootProps, getInputProps }) => (
                             <div style={{
@@ -65,7 +83,7 @@ function VideoUploadPage() {
 
                     {/*Thumbnail*/}
                     <div>
-                        <img src alt />
+                        <img src alt="" />
                     </div>
                 </div>
                 <br />
