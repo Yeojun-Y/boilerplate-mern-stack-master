@@ -3,7 +3,8 @@ import { Typography, Button, Form, message, Input, Icon } from 'antd';
 // import Title from 'antd/lib/skeleton/Title';
 import Dropzone from 'react-dropzone';
 // import { response } from 'express';
-import axios from 'axios';
+// import axios from 'axios';
+import Axios from 'axios';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -46,10 +47,25 @@ function VideoUploadPage() {
         }
         formData.append("file", files[0])
         
-        axios.post('/api/video/uploads', formData, config)
+        Axios.post('/api/video/uploads', formData, config)
             .then(response => {
                 if(response.data.success) {
-                    console.log(response.data)
+                    console.log(response.data);
+                    message.success("성공적으로 업로드 했습니다.");
+
+                    let variable = {
+                        url:response.data.url,
+                        fileName: response.data.fileName
+                    }
+
+                    Axios.post('/api/video/thumbnail', variable) 
+                    .then(response => {
+                        if(response.data.success) {
+
+                        } else {
+                            alert('썸네일 생성에 실패 했습니다.')
+                        }
+                    })
                 }else {
                     alert('비디오 업로드를 실패했습니다.')
                 }
