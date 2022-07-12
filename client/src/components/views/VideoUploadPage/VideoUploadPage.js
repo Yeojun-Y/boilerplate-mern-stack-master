@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Button, Form, message, Input, /*Icon */} from 'antd';
+import { Typography, Button, Form, message, Input, Icon } from 'antd';
 
 // import Title from 'antd/lib/skeleton/Title';
 import Dropzone from 'react-dropzone';
@@ -44,13 +44,13 @@ function VideoUploadPage() {
     const onDrop = (files) => {
         let formData = new FormData();
         const config = {
-            Headers: {'content-type': 'multipart/form-data'}
+            Headers: { 'content-type': 'multipart/form-data' }
         }
         formData.append("file", files[0])
-        
+
         Axios.post('/api/video/uploads', formData, config)
             .then(response => {
-                if(response.data.success) {
+                if (response.data.success) {
                     console.log(response.data);
                     message.success("성공적으로 업로드 했습니다.");
 
@@ -59,17 +59,20 @@ function VideoUploadPage() {
                         fileName: response.data.filename
                     }
 
-                    Axios.post('/api/video/thumbnail', variable) 
-                    .then(response => {
-                        if(response.data.success) {
-                            console.log(response.data);
-                        } else {
-                            alert('썸네일 생성에 실패 했습니다.')
-                        }
-                    })
-                }else {
+                    Axios.post('/api/video/thumbnails', variable)
+
+                        .then(response => {
+                            if (response.data.success) {
+
+                                console.log(response.data);
+
+                            } else {
+                                alert('썸네일 생성에 실패 했습니다.')
+                            }
+                        })
+                } else {
                     alert('비디오 업로드를 실패했습니다.')
-                }
+                };
             })
     }
     return (
@@ -98,7 +101,7 @@ function VideoUploadPage() {
                         )}
                     </Dropzone>
 
-                    {/*Thumbnail*/}
+                    {/*Thumbnails*/}
                     <div>
                         <img src alt="" />
                     </div>

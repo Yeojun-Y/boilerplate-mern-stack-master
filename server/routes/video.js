@@ -3,8 +3,9 @@ const router = express.Router();
 // const { Video } = require("../models/Video");
 const path = require('path');
 const { auth } = require("../middleware/auth");
-const multer = require("multer");
+const  multer  = require("multer");
 var ffmpeg = require("fluent-ffmpeg");
+ffmpeg.setFfmpegPath("B:\Users\ikm32\Downloads\ffmpeg-5.0.1-essentials_build\bin\ffmpeg.exe");
 
 // STORAGE MULTER CONFIG
 // let storage = multer.diskStorage({
@@ -61,7 +62,7 @@ router.post('/uploads', (req, res) => {
     })
 })
 
-router.post('/thumbnail', (req, res) => {
+router.post('/thumbnails', (req, res) => {
     // 썸네일 생성하고 비디오 러닝타임 가져오기
 
     let filePath = ""
@@ -80,7 +81,7 @@ router.post('/thumbnail', (req, res) => {
             console.log('Will generate ' + filenames.join(', '))
             console.log(filenames)
 
-            filePath = "uploads/thumbnails/" + filenames[0]
+            filePath = "/thumbnails" + filenames[0]
         })
         .on('end', function () {
             console.log('Screenshots taken')
@@ -95,7 +96,7 @@ router.post('/thumbnail', (req, res) => {
         .screenshot({
             // Will take screenshots at 20%, 40%, 60% and 80% of the video
             count: 3,
-            folder: 'uplpoads/thumbnail',
+            folder: 'uploads/thumbnails',
             size: '320x240',
 
             filename: 'thumbnail-%b.png'
