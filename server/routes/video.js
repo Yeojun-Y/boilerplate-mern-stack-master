@@ -77,21 +77,21 @@ router.post('/thumbnails', (req, res) => {
     });
 
     //썸네일 생성
-    ffmpeg(req.body.url)
+    ffmpeg(req.body.url) //<- uploads폴더의 경로를 가져온다
         .on('filenames', function (filenames) {
             console.log('Will generate ' + filenames.join(', '))
             console.log(filenames)
 
             filePath = "uploads/thumbnails/" + filenames[0]
         })
-        .on('end', function () {
+        .on('end', function () {  //썸네일을 생성하고 무엇을 할 것인지
             console.log('Screenshots taken')
             return res.json({
                 success: true, url: filePath, fileDuration: fileDuration
             })
         })
         .on('error', function (err) {
-            console.err(err);
+            console.error(err);
             return res.json({ success: false, err })
         })
         .screenshot({
