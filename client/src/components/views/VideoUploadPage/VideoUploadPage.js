@@ -47,7 +47,7 @@ function VideoUploadPage() {
             Headers: { 'content-type': 'multipart/form-data' }
         }
         formData.append("file", files[0])
-
+        console.log(files);
         Axios.post('/api/video/uploads', formData, config)
             .then(response => {
                 if (response.data.success) {
@@ -55,10 +55,10 @@ function VideoUploadPage() {
                     message.success("성공적으로 업로드 했습니다.");
 
                     let variable = {
-                        url: response.data.url,
+                        url: response.data.filePath,
                         fileName: response.data.filename
                     }
-
+                    console.log("성공적으로 업로드 했습니다2.");
                     Axios.post('/api/video/thumbnails', variable)
 
                         .then(response => {

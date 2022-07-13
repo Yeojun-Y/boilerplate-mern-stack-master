@@ -5,7 +5,7 @@ const path = require('path');
 const { auth } = require("../middleware/auth");
 const  multer  = require("multer");
 var ffmpeg = require("fluent-ffmpeg");
-ffmpeg.setFfmpegPath("B:\Users\ikm32\Downloads\ffmpeg-5.0.1-essentials_build\bin\ffmpeg.exe");
+ffmpeg.setFfmpegPath("B:\\Users\\ikm32\\Downloads\\ffmpeg-5.0.1-essentials_build\\bin\\ffmpeg.exe");
 
 // STORAGE MULTER CONFIG
 // let storage = multer.diskStorage({
@@ -55,7 +55,8 @@ router.post('/uploads', (req, res) => {
             return res.json({ success: false, err })
         } else {
             return res.json({
-                success: true, filePath: res.req.file.path,
+                success: true, 
+                filePath: res.req.file.path,
                 filename: res.req.file.filename
             })
         }
@@ -81,7 +82,7 @@ router.post('/thumbnails', (req, res) => {
             console.log('Will generate ' + filenames.join(', '))
             console.log(filenames)
 
-            filePath = "/thumbnails" + filenames[0]
+            filePath = "uploads/thumbnails/" + filenames[0]
         })
         .on('end', function () {
             console.log('Screenshots taken')
@@ -90,7 +91,7 @@ router.post('/thumbnails', (req, res) => {
             })
         })
         .on('error', function (err) {
-            console.log(err);
+            console.err(err);
             return res.json({ success: false, err })
         })
         .screenshot({
