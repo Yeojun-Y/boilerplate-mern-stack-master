@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 const path = require('path');
 const { auth } = require("../middleware/auth");
-const  multer  = require("multer");
+const multer = require("multer");
 var ffmpeg = require("fluent-ffmpeg");
 ffmpeg.setFfmpegPath("B:\\Users\\ikm32\\Downloads\\ffmpeg-5.0.1-essentials_build\\bin\\ffmpeg.exe");
 
@@ -55,7 +55,7 @@ router.post('/uploads', (req, res) => {
             return res.json({ success: false, err })
         } else {
             return res.json({
-                success: true, 
+                success: true,
                 filePath: res.req.file.path,
                 filename: res.req.file.filename
             })
@@ -63,6 +63,15 @@ router.post('/uploads', (req, res) => {
     })
 })
 
+router.post('/uploadVideo', (req, res) => {
+    // 비디오 정보들 저장
+    const video = new Video(req.body)
+
+    video.save((err, doc) => {
+        if (err) return res.json({ success: false, err })
+        res.status(200).json({ success: true })
+    })
+})
 router.post('/thumbnails', (req, res) => {
     // 썸네일 생성하고 비디오 러닝타임 가져오기
 

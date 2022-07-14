@@ -3,9 +3,11 @@ import { Typography, Button, Form, message, Input, Icon } from 'antd';
 
 // import Title from 'antd/lib/skeleton/Title';
 import Dropzone from 'react-dropzone';
-// import { response } from 'express';
 // import axios from 'axios';
 import Axios from 'axios';
+import { useSelector } from 'react-redux';
+// import { response } from 'express';
+// import { useNavigate } from "react-router-dom";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -21,14 +23,16 @@ const CategoryOptions = [
     { value: 3, label: "Pets & Animals" },
 ]
 
-function VideoUploadPage() {
+function VideoUploadPage(props) {
 
+    const user = useSelector(state => state.user);
+    // const navigate = useNavigate();
 
     const [VideoTitle, setVideoTitle] = useState("")
     const [Description, setDescription] = useState("")
     const [Private, setPrivate] = useState(0)
-    const [Category, setCategory] = useState("Film & Animation")
     const [filePath, setfilePath] = useState("")
+    const [Category, setCategory] = useState("Film & Animation")
     const [Duration, setDuration] = useState("")
     const [ThumbnailPath, setThumbnailPath] = useState("")
 
@@ -80,13 +84,45 @@ function VideoUploadPage() {
                 };
             })
     }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const variables = {
+            writer: user.userData._id,
+            title: VideoTitle,
+            description: Description,
+            privacy: Private,
+            filePath: filePath,
+            category: Category,
+            duration: Duration,
+            thumbnail: ThumbnailPath,
+
+        }
+        //비디오 업로드
+        Axios.post('/api/video/uploadVideo', variables)
+            .then(response => {
+                if (response.data.success) {
+                    console.log(response.data)
+                    message.success('업로드 성공!')
+
+                    setTimeout(() => {
+                        // navigate("/")
+                        props.history.push('/')
+                    }, 3000);
+
+                } else {
+                    alert('비디오 업로드에 실패 했습니다.!!')
+                }
+            })
+    }
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }} >
                 <Title Level={2}>upload Video</Title>
             </div>
 
-            <Form onSubmit>
+            <Form onSubmit={onSubmit}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     {/* Drop zone*/}
                     <Dropzone
@@ -148,7 +184,7 @@ function VideoUploadPage() {
                 </select>
                 <br />
                 <br />
-                <Button type="primary" size="large" onClick>
+                <Button type="primary" size="large" onClick={onSubmit}>
                     Submit
                 </Button>
 
