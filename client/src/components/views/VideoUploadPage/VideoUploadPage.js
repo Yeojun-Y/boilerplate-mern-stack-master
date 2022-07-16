@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 
 const { TextArea } = Input;
 const { Title } = Typography;
+
 const PrivateOptions = [
     { value: 0, label: "Private" },
     { value: 1, label: "Public" },
@@ -43,10 +44,10 @@ function VideoUploadPage(props) {
         setDescription(e.currentTarget.value)
     }
     const onPrivateChange = (e) => {
-        setDescription(e.currentTarget.value)
+        setPrivate(e.currentTarget.value)
     }
     const onCategoryChange = (e) => {
-        setDescription(e.currentTarget.value)
+        setCategory(e.currentTarget.value)
     }
     const onDrop = (files) => {
         let formData = new FormData();
