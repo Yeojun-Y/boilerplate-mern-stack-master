@@ -1,22 +1,20 @@
 import { Avatar, Col, Input, List, Row } from 'antd'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-// import { useParams } from "react-router-dom";
-function VideoDetailpage(props) {
+import { useParams } from "react-router-dom";
+function VideoDetailpage() {
 
-    const videoId = props.match.params.videoId
+    // const videoId = props.match.params.videoId
 
-    // const videoId = useParams().videoId;
+    const videoId = useParams().videoId;
     const variable = { videoId: videoId }
     const [VideoDetail, setVideoDetail] = useState([])
 
-
     useEffect(() => {
 
-        Axios.post('/api/video/getVideos', variable)
+        Axios.post('/api/video/getVideoDetail', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data)
                     setVideoDetail(response.data.VideoDetail)
                 } else {
                     alert('비디오 정보 가져오는 것을 실패했습니다.')
@@ -26,7 +24,7 @@ function VideoDetailpage(props) {
 
     if (VideoDetail.writer) {
         return (
-            <Row gutter={[16, 16]}>
+            <Row>
                 <Col lg={18} xs={24} >
                     <div style={{ width: '100%', padding: '3rem 4rem' }}>
                         <video style={{ width: '100%' }}
