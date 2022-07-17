@@ -32,7 +32,7 @@ function LandingPage() {
         return <Col lg={6} md={8} xs={24}>
             {/*large사이즈일 때 6사이즈로 24를 맞춤 4개가 보인다. */}
             {/*middel사이즈일 때 8사이즈로 24를 맞춤 3개가 보인다. */}
-            <a href={`/video/post${video._id}`} >
+            <a href={`/video/${video._id}`} >
                 <div style={{ position: 'relative' }}>
                     <img style={{ width: '100%' }} src={`http://localhost:5000/${video.thumbnail}`} />
                     <div className="Duration">
