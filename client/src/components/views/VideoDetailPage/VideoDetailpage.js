@@ -2,6 +2,10 @@ import { Avatar, Col, Input, List, Row } from 'antd'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
+import SideVideo from './Sections/SideVideo';
+
+
+
 function VideoDetailpage() {
 
     // const videoId = props.match.params.videoId
@@ -45,7 +49,8 @@ function VideoDetailpage() {
 
                 </Col>
                 <Col lg={6} xs={24} >
-                    Side Video
+                   {/* Side Video */ }
+                   <SideVideo />
                 </Col>
             </Row>
         )
