@@ -3,7 +3,7 @@ import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import SideVideo from './Sections/SideVideo';
-
+import Subscribe from './Sections/Subscribe';
 
 
 function VideoDetailpage() {
@@ -35,7 +35,8 @@ function VideoDetailpage() {
                             src={`http://localhost:5000/${VideoDetail.filePath}`} controls />
 
                         <List.Item
-                            actions //like & dislike
+                             //like & dislike 
+                             actions={[<Subscribe />]}
                         >
                             <List.Item.Meta
 
