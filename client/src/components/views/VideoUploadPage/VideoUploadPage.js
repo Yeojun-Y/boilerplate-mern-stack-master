@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
-
-// import Title from 'antd/lib/skeleton/Title';
 import Dropzone from 'react-dropzone';
-// import axios from 'axios';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 // import { response } from 'express';
