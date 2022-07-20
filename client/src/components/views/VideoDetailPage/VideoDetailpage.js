@@ -2,7 +2,6 @@ import { Avatar, Col, Input, List, Row } from 'antd'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
-import { Video } from '../../../../../server/models/Video';
 import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
 
@@ -37,7 +36,7 @@ function VideoDetailpage() {
 
                         <List.Item
                              //like & dislike 
-                             actions={[<Subscribe userTo={Video.writer._id} />]}
+                             actions={[<Subscribe userTo={VideoDetail.writer._id} />]}
                         >
                             <List.Item.Meta
 
