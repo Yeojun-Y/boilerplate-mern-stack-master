@@ -36,7 +36,8 @@ function VideoDetailpage() {
 
                         <List.Item
                              //like & dislike 
-                             actions={[<Subscribe userTo={VideoDetail.writer._id} />]}
+                             actions={[<Subscribe userTo={VideoDetail.writer._id} 
+                                userFrom={localStorage.getItem('userId')} />]}
                         >
                             <List.Item.Meta
 
