@@ -18,7 +18,8 @@ function VideoDetailpage() {
 
         Axios.post('/api/video/getVideoDetail', variable)
             .then(response => {
-                if (response.data.success) {
+                if(response.data.success) {
+                    console.log(response.data.VideoDetail)
                     setVideoDetail(response.data.VideoDetail)
                 } else {
                     alert('비디오 정보 가져오는 것을 실패했습니다.')
@@ -35,8 +36,8 @@ function VideoDetailpage() {
                             src={`http://localhost:5000/${VideoDetail.filePath}`} controls />
 
                         <List.Item
-                             //like & dislike 
-                             actions={[<Subscribe userTo={VideoDetail.writer._id} 
+                            //like & dislike 
+                            actions={[<Subscribe userTo={VideoDetail.writer._id}
                                 userFrom={localStorage.getItem('userId')} />]}
                         >
                             <List.Item.Meta
@@ -51,8 +52,8 @@ function VideoDetailpage() {
 
                 </Col>
                 <Col lg={6} xs={24} >
-                   {/* Side Video */ }
-                   <SideVideo />
+                    {/* Side Video */}
+                    <SideVideo />
                 </Col>
             </Row>
         )

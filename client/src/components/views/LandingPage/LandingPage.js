@@ -27,7 +27,7 @@ function LandingPage() {
     const renderCards = Video.map((video, index) => {
         var hours = Math.floor(video.duration / 60 / 60);
         var minutes = Math.floor(video.duration / 60);
-        var seconds = Math.floor(video.duration - (minutes * 60) );
+        var seconds = Math.floor(video.duration - (minutes * 60));
 
         return <Col lg={6} md={8} xs={24}>
             {/*large사이즈일 때 6사이즈로 24를 맞춤 4개가 보인다. */}
