@@ -10,7 +10,7 @@ function Subscribe(props) {
 
   useEffect(() => {
 
-    let variable = { userTo: props.userTo }
+    let variable = { userTo: props.userTo, userFrom: localStorage.getItem('userId') }
 
     Axios.post('/api/subscribe/SubscribeNumber', variable)
       .then(response => {
@@ -34,7 +34,7 @@ function Subscribe(props) {
         }
       })
   }, [])
-
+console.log(Subscribed)
   const onSubscribe = () => {
 
     let subscribedVariable = {
@@ -55,23 +55,24 @@ function Subscribe(props) {
       Axios.post('/api/subscribe/subscribe', subscribedVariable)
         .then(response => {
           if (response.data.success) {
-            setSubscribeNumber(SubscribeNumber + 1)
+            setSubscribeNumber(SubscribeNumber + 1 )
             setSubscribed(!Subscribed)
           } else {
             alert('구독 실패')
           }
         })
-    }
+    }console.log(Subscribed)
   }
   return (
     <div>
       <button
+        onClick={onSubscribe}
         style={{
           backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}`, borderRadius: '4px',
           color: 'white', padding: '10px 16px', fontWeight: '500',
           fontSize: '1rem', textTransform: 'uppercase'
         }}
-        onClick={onSubscribe}
+
       >
         {SubscribeNumber} {Subscribed ? 'Subscribed' : 'Subscribe'}
         {/* 구독중이라면 Subscribed @@ 구독하지 않았다면 Subscribe로 보여준다*/}

@@ -44,6 +44,6 @@ router.post('/subscribe', (req, res) => {
         if(err) return res.json({ success: false, err})
         res.status(200).json({ success: true })
     })
-})
+});
 
 module.exports = router;
